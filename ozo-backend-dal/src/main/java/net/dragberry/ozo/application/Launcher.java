@@ -26,14 +26,23 @@ public class Launcher {
 			User user3 = userDao.findOne(1003L);
 
 			LevelDao levelDao = context.getBean(LevelDao.class);
+			
 			Level level = levelDao.findOne(new LevelId("ozo.level.0"));
 			System.out.println(level.getEntityKey().getLevelId());
 			
 			LevelResultDao levelResultDao = context.getBean(LevelResultDao.class);
-			createStepsResult(user0, level, 5, levelResultDao);
-			createStepsResult(user1, level, 7, levelResultDao);
-			createStepsResult(user2, level, 3, levelResultDao);
-			createStepsResult(user3, level, 6, levelResultDao);
+//			createStepsResult(user0, level, 5, levelResultDao);
+//			createStepsResult(user1, level, 7, levelResultDao);
+//			createStepsResult(user2, level, 3, levelResultDao);
+//			createStepsResult(user3, level, 6, levelResultDao);
+			
+			level = levelDao.findOne(new LevelId("ozo.level.1"));
+			System.out.println(level.getEntityKey().getLevelId());
+			
+			createStepsResult(user0, level, 44, levelResultDao);
+			createStepsResult(user1, level, 32, levelResultDao);
+			createStepsResult(user2, level, 534, levelResultDao);
+			createStepsResult(user3, level, 66, levelResultDao);
 		
 		}
 	}

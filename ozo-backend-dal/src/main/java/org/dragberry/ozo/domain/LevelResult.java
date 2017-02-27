@@ -37,7 +37,7 @@ public abstract class LevelResult<T extends Serializable> implements DomainEntit
 	@Column(name = "DATE")
 	private LocalDateTime date;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "USER_KEY", referencedColumnName = "USER_KEY")
 	private User user;
 	

@@ -1,5 +1,7 @@
 package org.dragberry.ozo.dao.impl;
 
+import java.util.List;
+
 import org.dragberry.ozo.dao.LevelDao;
 import org.dragberry.ozo.domain.Level;
 import org.dragberry.ozo.domain.LevelId;
@@ -10,5 +12,13 @@ public class LevelDaoImpl extends AbstractDao<Level, LevelId> implements LevelDa
 
 	public LevelDaoImpl() {
 		super(Level.class);
+	}
+	
+	@Override
+	public List<Level> fetchList(List<LevelId> levelIds) {
+		return getEntityManager()
+			.createNamedQuery(Level.FETCH_LIST_BY_IDS, Level.class)
+			.setParameter("levelIds", levelIds)
+			.getResultList();
 	}
 }

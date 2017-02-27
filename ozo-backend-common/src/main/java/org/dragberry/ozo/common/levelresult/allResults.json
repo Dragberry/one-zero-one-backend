@@ -1,0 +1,89 @@
+{
+	"userEmail": "test1@gmail.com",
+	"levelResults": {
+		"ozo.level.0": {
+			"integerResults": {
+				"LOST_UNITS": {
+					"personal": null,
+					"worlds": null,
+					"ownerUserEmail": null
+				},
+				"STEPS": {
+					"personal": null,
+					"worlds": null,
+					"ownerUserEmail": null
+				}
+			},
+			"floatResults": {
+				"TIME": {
+					"personal": null,
+					"worlds": null,
+					"ownerUserEmail": null
+				}
+			}
+		},
+		"ozo.level.1": {
+			"integerResults": {
+				"LOST_UNITS": {
+					"personal": null,
+					"worlds": null,
+					"ownerUserEmail": null
+				},
+				"STEPS": {
+					"personal": 32,
+					"worlds": 32,
+					"ownerUserEmail": "test1@gmail.com"
+				}
+			},
+			"floatResults": {
+				"TIME": {
+					"personal": null,
+					"worlds": null,
+					"ownerUserEmail": null
+				}
+			}
+		},
+		"ozo.level.2": {
+			"integerResults": {
+				"LOST_UNITS": {
+					"personal": null,
+					"worlds": null,
+					"ownerUserEmail": null
+				},
+				"STEPS": {
+					"personal": null,
+					"worlds": null,
+					"ownerUserEmail": null
+				}
+			},
+			"floatResults": {
+				"TIME": {
+					"personal": null,
+					"worlds": null,
+					"ownerUserEmail": null
+				}
+			}
+		},
+		"ozo.level.3": {
+			"integerResults": {
+				"LOST_UNITS": {
+					"personal": null,
+					"worlds": null,
+					"ownerUserEmail": null
+				},
+				"STEPS": {
+					"personal": null,
+					"worlds": null,
+					"ownerUserEmail": null
+				}
+			},
+			"floatResults": {
+				"TIME": {
+					"personal": null,
+					"worlds": null,
+					"ownerUserEmail": null
+				}
+			}
+		}
+	}
+}

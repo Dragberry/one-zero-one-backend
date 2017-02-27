@@ -68,6 +68,12 @@
 			<artifactId>commons-dbcp2</artifactId>
 			<version>2.0.1</version>
 		</dependency>
+		
+		<dependency>
+			<artifactId>ozo-backend-common</artifactId>
+			<groupId>org.dragberry.ozo</groupId>
+			<version>${project.version}</version>
+		</dependency>
 
 	</dependencies>
 
