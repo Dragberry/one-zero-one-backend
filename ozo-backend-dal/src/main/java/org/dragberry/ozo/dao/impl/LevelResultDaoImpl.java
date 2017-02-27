@@ -46,15 +46,9 @@ public class LevelResultDaoImpl implements LevelResultDao {
 		CriteriaQuery<T> cq = cb.createQuery(resultClass);
 		Root<T> root = cq.from(resultClass);
 		
-		Subquery<Number> sq = cq.subquery(Number.class);
-		Root<T> sqRoot = sq.from(resultClass);
-		sq.select(cb.min(sqRoot.get("resultValue")))
-			.where(cb.equal(sqRoot.get("level").get("entityKey"), levelId));
-		
 		cq.select(root).where(cb.and(
 				cb.equal(root.get("level").get("entityKey"), levelId),
-				cb.equal(root.get("user").get("email"), userEmail),
-				cb.equal(root.get("resultValue"), sq.getSelection())));
+				cb.equal(root.get("user").get("email"), userEmail)));
 		
 		List<T> list = entityManager.createQuery(cq).getResultList();
 		return list.size() == 1 ? list.get(0) : null;

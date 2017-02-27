@@ -1,5 +1,9 @@
 package org.dragberry.ozo.web.controllers;
 
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.dragberry.ozo.common.level.Levels;
@@ -9,13 +13,13 @@ import org.dragberry.ozo.common.levelresult.LevelResultName;
 import org.dragberry.ozo.common.levelresult.LevelResults;
 import org.dragberry.ozo.dao.LevelResultDao;
 import org.dragberry.ozo.domain.LevelId;
+import org.dragberry.ozo.domain.LevelResult;
 import org.dragberry.ozo.domain.LostUnitsLevelResult;
 import org.dragberry.ozo.domain.StepsLevelResult;
 import org.dragberry.ozo.domain.TimeLevelResult;
 import org.dragberry.ozo.service.LevelResultCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,47 +45,34 @@ public class LevelResultController {
 			LevelId levelId = new LevelId(level.getLevelId());
 			LevelResults singleLevelResults = new LevelResults();
 			if (level.getResultNames().contains(LevelResultName.TIME)) {
-				LevelSingleResult<Float> singleResult = new LevelSingleResult<Float>();
-				TimeLevelResult result = null; 
-				
-				result = levelResultCache.computeIfAbsent(TimeLevelResult.class, levelId, (resultKey) -> levelResultDao.getResultsForLevel(TimeLevelResult.class, levelId));
-				if (result != null) {
-					singleResult.setWorlds(result.getResultValue());
-					singleResult.setOwnerUserEmail(result.getUser().getEmail());
-					if (!result.getUser().getEmail().equals(userEmail)) {
-						result = levelResultDao.getResultsForLevel(TimeLevelResult.class, levelId, userEmail);
+				new SingleResultBuiler<Float>(singleLevelResults, TimeLevelResult.class) {
+
+					@Override
+					Map<LevelResultName,LevelSingleResult<Float>> getResultList() {
+						return singleLevelResults.getFloatResults();
 					}
-					singleResult.setPersonal(result != null ? result.getResultValue() : null);
-				}
-				singleLevelResults.getFloatResults().put(LevelResultName.TIME, singleResult);
+					
+				}.build(userEmail, levelId, LevelResultName.TIME);
 			}
 			if (level.getResultNames().contains(LevelResultName.STEPS)) {
-				LevelSingleResult<Integer> singleResult = new LevelSingleResult<Integer>();
-				StepsLevelResult result = null; 
-				result = levelResultCache.computeIfAbsent(StepsLevelResult.class, levelId, (resultKey) -> levelResultDao.getResultsForLevel(StepsLevelResult.class, levelId));
-				if (result != null) {
-					singleResult.setWorlds(result.getResultValue());
-					singleResult.setOwnerUserEmail(result.getUser().getEmail());
-					if (!result.getUser().getEmail().equals(userEmail)) {
-						result = levelResultDao.getResultsForLevel(StepsLevelResult.class, levelId, userEmail);
+				new SingleResultBuiler<Integer>(singleLevelResults, StepsLevelResult.class) {
+
+					@Override
+					Map<LevelResultName,LevelSingleResult<Integer>> getResultList() {
+						return singleLevelResults.getIntegerResults();
 					}
-					singleResult.setPersonal(result != null ? result.getResultValue() : null);
-				}
-				singleLevelResults.getIntegerResults().put(LevelResultName.STEPS, singleResult);
+					
+				}.build(userEmail, levelId, LevelResultName.STEPS);
 			}
 			if (level.getResultNames().contains(LevelResultName.LOST_UNITS)) {
-				LevelSingleResult<Integer> singleResult = new LevelSingleResult<Integer>();
-				LostUnitsLevelResult result = null; 
-				result = levelResultCache.computeIfAbsent(LostUnitsLevelResult.class, levelId, (resultKey) -> levelResultDao.getResultsForLevel(LostUnitsLevelResult.class, levelId));
-				if (result != null) {
-					singleResult.setWorlds(result.getResultValue());
-					singleResult.setOwnerUserEmail(result.getUser().getEmail());
-					if (!result.getUser().getEmail().equals(userEmail)) {
-						result = levelResultDao.getResultsForLevel(LostUnitsLevelResult.class, levelId, userEmail);
+				new SingleResultBuiler<Integer>(singleLevelResults, LostUnitsLevelResult.class) {
+
+					@Override
+					Map<LevelResultName,LevelSingleResult<Integer>> getResultList() {
+						return singleLevelResults.getIntegerResults();
 					}
-					singleResult.setPersonal(result != null ? result.getResultValue() : null);
-				}
-				singleLevelResults.getIntegerResults().put(LevelResultName.LOST_UNITS, singleResult);
+					
+				}.build(userEmail, levelId, LevelResultName.LOST_UNITS);
 			}
 			allLevelResults.getLevelResults().put(level.getLevelId(), singleLevelResults);
 		});
@@ -89,71 +80,32 @@ public class LevelResultController {
 		return allLevelResults;
 	}
 	
-	private static AllLevelResults createTestLevelResults(String email) {
-		AllLevelResults allLevelResults = new AllLevelResults();
-		allLevelResults.setUserEmail(email);
+	private abstract class SingleResultBuiler<V extends Serializable> {
 		
-		LevelResults singleLevelResults = null;
+		protected final LevelResults singleLevelResults;
+		protected final Class<? extends LevelResult<V>> clazz;
 		
-		singleLevelResults = new LevelResults();
-		singleLevelResults.getFloatResults().put(LevelResultName.TIME, 
-				new LevelSingleResult<Float>(100f, 45f, "world.@mail.com"));
-		singleLevelResults.getIntegerResults().put(LevelResultName.STEPS, 
-				new LevelSingleResult<Integer>(65, 32, "world.@mail.com"));
-		singleLevelResults.getIntegerResults().put(LevelResultName.LOST_UNITS, 
-				new LevelSingleResult<Integer>(16, 11, "world.@mail.com"));
-		allLevelResults.getLevelResults().put("ozo.level.0", singleLevelResults);
+		SingleResultBuiler(LevelResults singleLevelResults, Class<? extends LevelResult<V>> clazz) {
+			this.singleLevelResults = singleLevelResults;
+			this.clazz = clazz;
+		}
 		
-		singleLevelResults = new LevelResults();
-		singleLevelResults.getFloatResults().put(LevelResultName.TIME, 
-				new LevelSingleResult<Float>(45f, 36f, "world.@mail.com"));
-		singleLevelResults.getIntegerResults().put(LevelResultName.STEPS, 
-				new LevelSingleResult<Integer>(55, 25, "world.@mail.com"));
-		singleLevelResults.getIntegerResults().put(LevelResultName.LOST_UNITS, 
-				new LevelSingleResult<Integer>(12, 6, "world.@mail.com"));
-		allLevelResults.getLevelResults().put("ozo.level.1", singleLevelResults);
-	
-		return allLevelResults;
-	}
-}
-
-/*
-
-{ 
-	"results": {
-		"userEmail": "max@gmail.com",
-		"levelResults": [
-			{
-				"level": {
-					"levelId": "ozo.level.0",
-					"results": [
-						{ "TIME": { "personal": "66.23", "world": "55.55", "worldUser": "record@gmail.com" }},
-						{ "STEPS": { "personal": "54", "world": "36", "worldUser": "record@gmail.com" }},
-						{ "LOST_UNITS": { "personal": "14", "world": "9", "worldUser": "record@gmail.com" }}
-					]
+		void build(String userEmail, LevelId levelId, LevelResultName resultName) {
+			LevelSingleResult<V> singleResult = new LevelSingleResult<V>();
+			LevelResult<V> result = null; 
+			result = levelResultCache.computeIfAbsent(clazz, levelId, (resultKey) -> levelResultDao.getResultsForLevel(clazz, levelId));
+			if (result != null) {
+				singleResult.setWorlds(result.getResultValue());
+				singleResult.setOwnerUserEmail(result.getUser().getEmail());
+				if (!result.getUser().getEmail().equals(userEmail)) {
+					result = levelResultDao.getResultsForLevel(clazz, levelId, userEmail);
 				}
-			},
-			{
-				"level": {
-					"levelId": "ozo.level.1",
-					"results": [
-						{ "TIME": { "personal": "112.23", "world": "85.55", "worldUser": "record@gmail.com" }},
-						{ "STEPS": { "personal": "110", "world": "88", "worldUser": "record@gmail.com" }},
-						{ "LOST_UNITS": { "personal": "64", "world": "15", "worldUser": "record@gmail.com" }}
-					]
-				}
+				singleResult.setPersonal(result != null ? result.getResultValue() : null);
 			}
-		]
+			getResultList().put(resultName, singleResult);
+		}
+		
+		abstract Map<LevelResultName,LevelSingleResult<V>> getResultList();
 	}
+
 }
-
-
-
-
-
-
-
-
-
-*/
-
