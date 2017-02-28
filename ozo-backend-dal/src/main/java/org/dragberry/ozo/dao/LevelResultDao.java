@@ -9,5 +9,5 @@ public interface LevelResultDao extends DataAccessObject<LevelResult<? extends S
 
 	<T extends LevelResult<?>> T getResultsForLevel(Class<T> resultClass, LevelId levelId);
 
-	<T extends LevelResult<?>> T getResultsForLevel(Class<T> resultClass, LevelId levelId, String userEmail);
+	<T extends LevelResult<?>> T getResultsForLevel(Class<T> resultClass, LevelId levelId, String userId);
 }

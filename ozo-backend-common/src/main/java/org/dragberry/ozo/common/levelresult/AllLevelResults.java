@@ -8,16 +8,16 @@ public class AllLevelResults implements Serializable {
 
 	private static final long serialVersionUID = 4440334600460572470L;
 	
-	private String userEmail;
+	private String userName;
 	
 	private Map<String, LevelResults> levelResults = new HashMap<>();
 
-	public String getUserEmail() {
-		return userEmail;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public Map<String, LevelResults> getLevelResults() {

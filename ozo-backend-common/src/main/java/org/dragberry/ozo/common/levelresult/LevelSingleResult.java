@@ -8,17 +8,17 @@ public class LevelSingleResult<T extends Serializable> implements Serializable {
 	
 	public LevelSingleResult() {}
 
-	public LevelSingleResult(T personal, T worlds, String ownerUserEmail) {
+	public LevelSingleResult(T personal, T worlds, String owner) {
 		this.personal = personal;
 		this.worlds = worlds;
-		this.ownerUserEmail = ownerUserEmail;
+		this.owner = owner;
 	}
 
 	private T personal;
 	
 	private T worlds;
 	
-	private String ownerUserEmail;
+	private String owner;
 
 	public T getPersonal() {
 		return personal;
@@ -36,12 +36,13 @@ public class LevelSingleResult<T extends Serializable> implements Serializable {
 		this.worlds = worlds;
 	}
 
-	public String getOwnerUserEmail() {
-		return ownerUserEmail;
+	public String getOwner() {
+		return owner;
 	}
 
-	public void setOwnerUserEmail(String ownerUserEmail) {
-		this.ownerUserEmail = ownerUserEmail;
+	public void setOwner(String owner) {
+		this.owner = owner;
 	}
+	
 
 }

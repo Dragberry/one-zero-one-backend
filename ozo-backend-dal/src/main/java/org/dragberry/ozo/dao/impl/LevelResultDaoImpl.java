@@ -35,20 +35,22 @@ public class LevelResultDaoImpl implements LevelResultDao {
 				cb.equal(root.get("level").get("entityKey"), levelId),
 				cb.equal(root.get("resultValue"), sq.getSelection())));
 		
+		cq.orderBy(cb.asc(root.get("date")));
+		
 		List<T> list = entityManager.createQuery(cq).getResultList();
-		return list.size() == 1 ? list.get(0) : null;
+		return list.size() > 0 ? list.get(0) : null;
 	}
 	
 
 	@Override
-	public <T extends LevelResult<?>> T getResultsForLevel(Class<T> resultClass, LevelId levelId, String userEmail) {
+	public <T extends LevelResult<?>> T getResultsForLevel(Class<T> resultClass, LevelId levelId, String userId) {
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<T> cq = cb.createQuery(resultClass);
 		Root<T> root = cq.from(resultClass);
 		
 		cq.select(root).where(cb.and(
 				cb.equal(root.get("level").get("entityKey"), levelId),
-				cb.equal(root.get("user").get("email"), userEmail)));
+				cb.equal(root.get("user").get("userId"), userId)));
 		
 		List<T> list = entityManager.createQuery(cq).getResultList();
 		return list.size() == 1 ? list.get(0) : null;

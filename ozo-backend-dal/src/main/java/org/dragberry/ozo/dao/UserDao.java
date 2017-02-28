@@ -4,4 +4,6 @@ import org.dragberry.ozo.domain.User;
 
 public interface UserDao extends DataAccessObject<User, Long> {
 
+	User findById(String userId);
+
 }

@@ -1,45 +1,24 @@
 {
-	"userEmail": "makseemkadragun@gmail.com",
+	"userName": "makseemka",
 	"levelResults": {
 		"ozo.level.0": {
 			"integerResults": {
 				"LOST_UNITS": {
 					"personal": 53,
 					"worlds": 53,
-					"ownerUserEmail": "makseemkadragun@gmail.com"
+					"owner": "makseemka"
 				},
 				"STEPS": {
 					"personal": 5,
 					"worlds": 3,
-					"ownerUserEmail": "test2@gmail.com"
+					"owner": "test2"
 				}
 			},
 			"floatResults": {
 				"TIME": {
 					"personal": 32.5,
 					"worlds": 25.77,
-					"ownerUserEmail": "test1@gmail.com"
-				}
-			}
-		},
-		"ozo.level.1": {
-			"integerResults": {
-				"LOST_UNITS": {
-					"personal": 43,
-					"worlds": 2,
-					"ownerUserEmail": "test1@gmail.com"
-				},
-				"STEPS": {
-					"personal": 44,
-					"worlds": 32,
-					"ownerUserEmail": "test1@gmail.com"
-				}
-			},
-			"floatResults": {
-				"TIME": {
-					"personal": 42.3,
-					"worlds": 42.3,
-					"ownerUserEmail": "makseemkadragun@gmail.com"
+					"owner": "test1"
 				}
 			}
 		},
@@ -48,19 +27,19 @@
 				"LOST_UNITS": {
 					"personal": 143,
 					"worlds": 12,
-					"ownerUserEmail": "test1@gmail.com"
+					"owner": "test1"
 				},
 				"STEPS": {
 					"personal": 144,
 					"worlds": 132,
-					"ownerUserEmail": "test1@gmail.com"
+					"owner": "test1"
 				}
 			},
 			"floatResults": {
 				"TIME": {
 					"personal": 142.3,
 					"worlds": 142.3,
-					"ownerUserEmail": "makseemkadragun@gmail.com"
+					"owner": "makseemka"
 				}
 			}
 		},
@@ -69,19 +48,19 @@
 				"LOST_UNITS": {
 					"personal": null,
 					"worlds": null,
-					"ownerUserEmail": null
+					"owner": null
 				},
 				"STEPS": {
 					"personal": null,
 					"worlds": null,
-					"ownerUserEmail": null
+					"owner": null
 				}
 			},
 			"floatResults": {
 				"TIME": {
 					"personal": null,
 					"worlds": null,
-					"ownerUserEmail": null
+					"owner": null
 				}
 			}
 		}

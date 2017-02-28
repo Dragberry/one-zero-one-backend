@@ -1,17 +1,18 @@
 package org.dragberry.ozo.service;
 
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 import org.dragberry.ozo.domain.LevelId;
 import org.dragberry.ozo.domain.LevelResult;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class LevelResultCacheBean implements LevelResultCacheService {
 	
-	private Map<ResultKey, LevelResult<?>> cache = new ConcurrentHashMap<>();
+	@Autowired
+	private Map<ResultKey, LevelResult<?>> cache;
 	
 	@SuppressWarnings("unchecked")
 	public <T extends LevelResult<?>> T getResultsForLevel(Class<? extends LevelResult<?>> clazz, LevelId levelId) {
