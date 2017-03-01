@@ -2,15 +2,13 @@ package net.dragberry.ozo.application;
 
 import java.time.LocalDateTime;
 
+import org.dragberry.ozo.common.levelresult.LevelResultName;
 import org.dragberry.ozo.dao.LevelDao;
 import org.dragberry.ozo.dao.LevelResultDao;
 import org.dragberry.ozo.dao.UserDao;
-import org.dragberry.ozo.domain.StepsLevelResult;
-import org.dragberry.ozo.domain.TimeLevelResult;
 import org.dragberry.ozo.domain.Level;
 import org.dragberry.ozo.domain.LevelId;
-import org.dragberry.ozo.domain.LevelResult;
-import org.dragberry.ozo.domain.LostUnitsLevelResult;
+import org.dragberry.ozo.domain.IntegerLevelResult;
 import org.dragberry.ozo.domain.User;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -86,7 +84,8 @@ public class Launcher {
 	}
 
 	private static void createStepsResult(User user0, Level level, Integer value, LevelResultDao levelResultDao) {
-		LevelResult<Integer> integerResult = new StepsLevelResult();
+		IntegerLevelResult integerResult = new IntegerLevelResult();
+		integerResult.setName(LevelResultName.STEPS);
 		integerResult.setLevel(level);
 		integerResult.setResultValue(value);
 		integerResult.setUser(user0);
@@ -95,7 +94,8 @@ public class Launcher {
 	}
 	
 	private static void createLostUnitsResult(User user0, Level level, Integer value, LevelResultDao levelResultDao) {
-		LevelResult<Integer> integerResult = new LostUnitsLevelResult();
+		IntegerLevelResult integerResult = new IntegerLevelResult();
+		integerResult.setName(LevelResultName.LOST_UNITS);
 		integerResult.setLevel(level);
 		integerResult.setResultValue(value);
 		integerResult.setUser(user0);
@@ -104,11 +104,12 @@ public class Launcher {
 	}
 	
 	private static void createTimeResult(User user0, Level level, Float value, LevelResultDao levelResultDao) {
-		LevelResult<Float> floatResult = new TimeLevelResult();
-		floatResult.setLevel(level);
-		floatResult.setResultValue(value);
-		floatResult.setUser(user0);
-		floatResult.setDate(LocalDateTime.now());
-		levelResultDao.create(floatResult);
+		IntegerLevelResult result = new IntegerLevelResult();
+		result.setName(LevelResultName.TIME);
+		result.setLevel(level);
+		result.setResultValue((int) (value * 1000));
+		result.setUser(user0);
+		result.setDate(LocalDateTime.now());
+		levelResultDao.create(result);
 	}
 }

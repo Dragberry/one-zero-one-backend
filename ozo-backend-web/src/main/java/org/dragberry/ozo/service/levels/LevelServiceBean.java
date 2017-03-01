@@ -7,6 +7,7 @@ import org.dragberry.ozo.common.level.Levels;
 import org.dragberry.ozo.dao.LevelDao;
 import org.dragberry.ozo.domain.Level;
 import org.dragberry.ozo.domain.LevelId;
+import org.dragberry.ozo.web.exceptions.LevelNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 public class LevelServiceBean implements LevelService {
 
 	private static final String LEVEL_DB_INCONSISTENT_ERR_MSG = "Level {0} exists in the code, but it is absent in database!";
+	
+	private static final String LEVEL_404_MSG = "Level with id {0} does not exist!";
 	
 	@Autowired
 	private LevelDao levelDao;
@@ -28,8 +31,9 @@ public class LevelServiceBean implements LevelService {
 				throw new RuntimeException(
 						MessageFormat.format(LEVEL_DB_INCONSISTENT_ERR_MSG, levelId));
 			}
+			return levelConfig;
 		}
-		return levelConfig;
+		throw new LevelNotFoundException(MessageFormat.format(LEVEL_404_MSG, levelId));
 	}
 
 }

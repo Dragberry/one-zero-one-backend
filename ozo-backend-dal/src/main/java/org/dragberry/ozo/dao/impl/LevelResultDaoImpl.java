@@ -1,6 +1,5 @@
 package org.dragberry.ozo.dao.impl;
 
-import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -9,86 +8,60 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 
+import org.dragberry.ozo.common.levelresult.LevelResultName;
 import org.dragberry.ozo.dao.LevelResultDao;
+import org.dragberry.ozo.domain.IntegerLevelResult;
 import org.dragberry.ozo.domain.LevelId;
-import org.dragberry.ozo.domain.LevelResult;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public class LevelResultDaoImpl implements LevelResultDao {
+public class LevelResultDaoImpl extends AbstractDao<IntegerLevelResult, Long> implements LevelResultDao {
+
+	public LevelResultDaoImpl() {
+		super(IntegerLevelResult.class);
+	}
 
 	@PersistenceContext
 	private EntityManager entityManager;
 	
-	public <T extends LevelResult<?>> T getResultsForLevel(Class<T> resultClass, LevelId levelId) {
+	@Override
+	public IntegerLevelResult getLevelResult(LevelId levelId, LevelResultName name) {
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-		CriteriaQuery<T> cq = cb.createQuery(resultClass);
-		Root<T> root = cq.from(resultClass);
+		CriteriaQuery<IntegerLevelResult> cq = cb.createQuery(entityType);
+		Root<IntegerLevelResult> root = cq.from(entityType);
 		
-		Subquery<Number> sq = cq.subquery(Number.class);
-		Root<T> sqRoot = sq.from(resultClass);
+		Subquery<Integer> sq = cq.subquery(Integer.class);
+		Root<IntegerLevelResult> sqRoot = sq.from(entityType);
 		sq.select(cb.min(sqRoot.get("resultValue")))
-			.where(cb.equal(sqRoot.get("level").get("entityKey"), levelId));
+			.where(cb.and(
+					cb.equal(sqRoot.get("level").get("entityKey"), levelId)),
+					cb.equal(sqRoot.get("name"), name));
 		
 		cq.select(root).where(cb.and(
 				cb.equal(root.get("level").get("entityKey"), levelId),
-				cb.equal(root.get("resultValue"), sq.getSelection())));
+				cb.equal(root.get("resultValue"), sq.getSelection())),
+				cb.equal(root.get("name"), name));
 		
 		cq.orderBy(cb.asc(root.get("date")));
 		
-		List<T> list = entityManager.createQuery(cq).getResultList();
+		List<IntegerLevelResult> list = entityManager.createQuery(cq).getResultList();
 		return list.size() > 0 ? list.get(0) : null;
 	}
 	
-
 	@Override
-	public <T extends LevelResult<?>> T getResultsForLevel(Class<T> resultClass, LevelId levelId, String userId) {
+	public IntegerLevelResult getLevelResultForUser(LevelId levelId, LevelResultName name, String userId) {
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-		CriteriaQuery<T> cq = cb.createQuery(resultClass);
-		Root<T> root = cq.from(resultClass);
+		CriteriaQuery<IntegerLevelResult> cq = cb.createQuery(entityType);
+		Root<IntegerLevelResult> root = cq.from(entityType);
 		
 		cq.select(root).where(cb.and(
+				cb.equal(root.get("user").get("userId"), userId)),
 				cb.equal(root.get("level").get("entityKey"), levelId),
-				cb.equal(root.get("user").get("userId"), userId)));
+				cb.equal(root.get("name"), name));
 		
-		List<T> list = entityManager.createQuery(cq).getResultList();
+		
+		List<IntegerLevelResult> list = entityManager.createQuery(cq).getResultList();
 		return list.size() == 1 ? list.get(0) : null;
 	}
 	
-	@Override
-	public LevelResult<?> findOne(Long entityKey) {
-		return entityManager.find(LevelResult.class, entityKey);
-	}
-
-	@Override
-	public List<LevelResult<?>> fetchList() {
-		return null;
-	}
-
-	@Override
-	public Long count() {
-		return null;
-	}
-
-	@Override
-	@Transactional
-	public LevelResult<?> create(LevelResult<? extends Serializable> entity) {
-		entityManager.persist(entity);
-		return entity;
-	}
-
-	@Override
-	public LevelResult<?> update(LevelResult<? extends Serializable> entity) {
-		return entityManager.merge(entity);
-	}
-
-	@Override
-	public LevelResult<?> delete(Long entityKey) {
-		LevelResult<?> entity = entityManager.find(LevelResult.class, entityKey);
-		entityManager.remove(entity);
-		return entity;
-	}
-
-
 }

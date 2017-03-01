@@ -13,8 +13,7 @@ public class UserDaoImpl extends AbstractDao<User, Long> implements UserDao {
 
 	@Override
 	public User findById(String userId) {
-		return getEntityManager()
-				.createNamedQuery(User.FIND_BY_ID_QUERY, getEntityType())
+		return entityManager.createNamedQuery(User.FIND_BY_ID_QUERY, entityType)
 				.setParameter("userId", userId)
 				.getSingleResult();
 	}

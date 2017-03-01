@@ -5,7 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.dragberry.ozo.domain.LevelResult;
 import org.dragberry.ozo.service.Services;
-import org.dragberry.ozo.service.LevelResultCacheBean.ResultKey;
+import org.dragberry.ozo.service.LevelResultCacheServiceBean.ResultKey;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.CommonAnnotationBeanPostProcessor;
 import org.springframework.context.annotation.ComponentScan;
@@ -25,7 +25,7 @@ public class AppConfig {
 	}
 	
 	@Bean
-	public Map<ResultKey, LevelResult<?>> levelResultsCache () {
+	public Map<ResultKey, LevelResult<Integer>> levelResultsCache () {
 		return new ConcurrentHashMap<>(); 
 	}
 }

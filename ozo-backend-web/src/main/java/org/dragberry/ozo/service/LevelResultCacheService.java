@@ -2,16 +2,16 @@ package org.dragberry.ozo.service;
 
 import java.util.function.Function;
 
+import org.dragberry.ozo.common.levelresult.LevelResultName;
 import org.dragberry.ozo.domain.LevelId;
 import org.dragberry.ozo.domain.LevelResult;
-import org.dragberry.ozo.service.LevelResultCacheBean.ResultKey;
+import org.dragberry.ozo.service.LevelResultCacheServiceBean.ResultKey;
 
 public interface LevelResultCacheService {
 
-	<T extends LevelResult<?>> T getResultsForLevel(Class<? extends LevelResult<?>> clazz, LevelId levelId);
-	
-	<T extends LevelResult<?>> void putResultsForLevel(Class<? extends LevelResult<?>> clazz, LevelId levelId, T levelResult);
+	LevelResult<Integer> getResultsForLevel(LevelResultName name, LevelId levelId);
+		
+	void putResultsForLevel(LevelResultName name, LevelId levelId, LevelResult<Integer> levelResult);
 
-	<T extends LevelResult<?>> T computeIfAbsent(Class<? extends LevelResult<?>> clazz, LevelId levelId, Function<? super ResultKey, ? extends LevelResult<?>> mappingFunction);
-	
+	LevelResult<Integer> computeIfAbsent(LevelResultName name, LevelId levelId, Function<? super ResultKey, ? extends LevelResult<Integer>> mappingFunction);
 }

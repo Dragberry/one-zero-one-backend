@@ -16,8 +16,7 @@ public class LevelDaoImpl extends AbstractDao<Level, LevelId> implements LevelDa
 	
 	@Override
 	public List<Level> fetchList(List<LevelId> levelIds) {
-		return getEntityManager()
-			.createNamedQuery(Level.FETCH_LIST_BY_IDS, Level.class)
+		return entityManager.createNamedQuery(Level.FETCH_LIST_BY_IDS, entityType)
 			.setParameter("levelIds", levelIds)
 			.getResultList();
 	}

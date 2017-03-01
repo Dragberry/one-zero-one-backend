@@ -11,9 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 public abstract class AbstractDao<E extends DomainEntity, ID extends Serializable> implements DataAccessObject<E, ID> {
 	
 	@PersistenceContext
-	private EntityManager entityManager;
+	protected EntityManager entityManager;
 	
-	private final Class<E> entityType;
+	protected final Class<E> entityType;
 	
 	public AbstractDao(Class<E> entityType) {
 		this.entityType = entityType;
@@ -26,12 +26,12 @@ public abstract class AbstractDao<E extends DomainEntity, ID extends Serializabl
 	
 	@Override
 	public List<E> fetchList() {
-		return getEntityManager().createQuery("FROM " + getEntityName(), entityType).getResultList();
+		return entityManager.createQuery("FROM " + getEntityName(), entityType).getResultList();
 	}
 	
 	@Override
 	public Long count() {
-		return getEntityManager().createQuery("SELECT COUNT(e) FROM " + getEntityName() + " e", Long.class).getSingleResult();
+		return entityManager.createQuery("SELECT COUNT(e) FROM " + getEntityName() + " e", Long.class).getSingleResult();
 	}
 	
 	@Override
@@ -58,14 +58,5 @@ public abstract class AbstractDao<E extends DomainEntity, ID extends Serializabl
 	protected String getEntityName() {
 		return entityType.getName();
 	}
-	
-	protected Class<E> getEntityType() {
-		return entityType;
-	}
-	
-	protected EntityManager getEntityManager() {
-		return entityManager;
-	}
-	
 	
 }

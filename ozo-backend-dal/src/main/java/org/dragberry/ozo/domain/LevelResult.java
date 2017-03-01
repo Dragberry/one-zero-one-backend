@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.TableGenerator;
+
+import org.dragberry.ozo.common.levelresult.LevelResultName;
 
 @MappedSuperclass
 public abstract class LevelResult<T extends Serializable> implements DomainEntity {
@@ -30,6 +34,10 @@ public abstract class LevelResult<T extends Serializable> implements DomainEntit
 			allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "LEVEL_RESULT_GEN")
 	private Long entityKey;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "NAME")
+	private LevelResultName name;
 	
 	@Column(name = "VALUE")
 	private T resultValue;
@@ -84,6 +92,14 @@ public abstract class LevelResult<T extends Serializable> implements DomainEntit
 
 	public void setDate(LocalDateTime date) {
 		this.date = date;
+	}
+
+	public LevelResultName getName() {
+		return name;
+	}
+
+	public void setName(LevelResultName name) {
+		this.name = name;
 	}
 
 }
