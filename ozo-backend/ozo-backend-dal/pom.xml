@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>ozo-backend-dal</artifactId>
-	<name>One-Zero-One Data Access Layer</name>
+	<name>....One-Zero-One Data Access Layer</name>
 	<packaging>jar</packaging>
 
 
@@ -68,10 +68,10 @@
 			<artifactId>commons-dbcp2</artifactId>
 			<version>2.0.1</version>
 		</dependency>
-		
+
 		<dependency>
-			<artifactId>ozo-backend-common</artifactId>
 			<groupId>org.dragberry.ozo</groupId>
+			<artifactId>ozo-common</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 

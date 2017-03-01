@@ -4,15 +4,14 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<artifactId>ozo-backend</artifactId>
+		<artifactId>ozo</artifactId>
 		<groupId>org.dragberry.ozo</groupId>
 		<version>1.0.0</version>
 	</parent>
 
-	<artifactId>ozo-backend-common</artifactId>
-	<name>One-Zero-One Common</name>
+	<artifactId>ozo-common</artifactId>
+	<name>..One-Zero-One Common</name>
 	<packaging>jar</packaging>
-
 
 	<dependencies>
 	

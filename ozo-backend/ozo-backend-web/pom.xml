@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>ozo-backend-war</artifactId>
-	<name>One-Zero-One Web</name>
+	<name>....One-Zero-One Web</name>
 	<packaging>war</packaging>
 
 	<dependencies>
@@ -81,8 +81,8 @@
 		</dependency>
 
 		<dependency>
-			<artifactId>ozo-backend-common</artifactId>
 			<groupId>org.dragberry.ozo</groupId>
+			<artifactId>ozo-common</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 
