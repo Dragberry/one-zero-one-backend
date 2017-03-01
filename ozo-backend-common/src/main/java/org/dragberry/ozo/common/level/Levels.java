@@ -17,7 +17,7 @@ public class Levels {
 				EnumSet.of(LevelResultName.TIME, LevelResultName.STEPS, LevelResultName.LOST_UNITS)));
 		map.put("ozo.level.1", new LevelConfig("ozo.level.1", 
 				EnumSet.of(LevelResultName.TIME, LevelResultName.STEPS, LevelResultName.LOST_UNITS)));
-		map.put("ozo.level.1", new LevelConfig("ozo.level.2", 
+		map.put("ozo.level.2", new LevelConfig("ozo.level.2", 
 				EnumSet.of(LevelResultName.TIME, LevelResultName.STEPS, LevelResultName.LOST_UNITS)));
 		map.put("ozo.level.3", new LevelConfig("ozo.level.3", 
 				EnumSet.of(LevelResultName.TIME, LevelResultName.STEPS, LevelResultName.LOST_UNITS)));

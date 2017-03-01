@@ -35,5 +35,20 @@ public class LevelServiceBean implements LevelService {
 		}
 		throw new LevelNotFoundException(MessageFormat.format(LEVEL_404_MSG, levelId));
 	}
+	
+	@Override
+	public Level getLevel(String levelId) {
+		LevelConfig levelConfig = Levels.LIST.get(levelId);
+		Level level = null;
+		if (levelConfig != null) {
+			level = levelDao.findOne(new LevelId(levelId));
+			if (level == null) {
+				throw new RuntimeException(
+						MessageFormat.format(LEVEL_DB_INCONSISTENT_ERR_MSG, levelId));
+			}
+			return level;
+		}
+		throw new LevelNotFoundException(MessageFormat.format(LEVEL_404_MSG, levelId));
+	}
 
 }

@@ -3,7 +3,7 @@ package org.dragberry.ozo.application.config;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.dragberry.ozo.domain.LevelResult;
+import org.dragberry.ozo.domain.IntegerLevelResult;
 import org.dragberry.ozo.service.Services;
 import org.dragberry.ozo.service.LevelResultCacheServiceBean.ResultKey;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +25,7 @@ public class AppConfig {
 	}
 	
 	@Bean
-	public Map<ResultKey, LevelResult<Integer>> levelResultsCache () {
+	public Map<ResultKey, IntegerLevelResult> levelResultsCache () {
 		return new ConcurrentHashMap<>(); 
 	}
 }

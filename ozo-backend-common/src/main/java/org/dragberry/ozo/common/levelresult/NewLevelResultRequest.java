@@ -2,15 +2,15 @@ package org.dragberry.ozo.common.levelresult;
 
 import java.io.Serializable;
 
-public class NewLevelResult<V extends Serializable> implements Serializable {
+public class NewLevelResultRequest<V extends Serializable> implements Serializable {
 
 	private static final long serialVersionUID = 1771865981934548201L;
 	
-	public NewLevelResult(V value) {
+	public NewLevelResultRequest(V value) {
 		this.value = value;
 	}
 	
-	public NewLevelResult() {}
+	public NewLevelResultRequest() {}
 	
 	private V value;
 

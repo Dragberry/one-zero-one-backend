@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NewLevelResultsRequest implements Serializable {
+public class NewLevelResultsResponse implements Serializable {
 
 	private static final long serialVersionUID = 4846478180576077174L;
 	
@@ -12,7 +12,7 @@ public class NewLevelResultsRequest implements Serializable {
 	
 	private String levelId;
 	
-	private Map<LevelResultName, NewLevelResultRequest<Integer>> results = new HashMap<>();
+	private Map<LevelResultName, NewLevelResultResponse<Integer>> results = new HashMap<>();
 
 	public String getUserId() {
 		return userId;
@@ -30,11 +30,11 @@ public class NewLevelResultsRequest implements Serializable {
 		this.levelId = levelId;
 	}
 
-	public Map<LevelResultName, NewLevelResultRequest<Integer>> getResults() {
+	public Map<LevelResultName, NewLevelResultResponse<Integer>> getResults() {
 		return results;
 	}
 
-	public void setResults(Map<LevelResultName, NewLevelResultRequest<Integer>> results) {
+	public void setResults(Map<LevelResultName, NewLevelResultResponse<Integer>> results) {
 		this.results = results;
 	}
 

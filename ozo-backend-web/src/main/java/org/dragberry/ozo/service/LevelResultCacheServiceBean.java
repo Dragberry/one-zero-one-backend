@@ -4,8 +4,8 @@ import java.util.Map;
 import java.util.function.Function;
 
 import org.dragberry.ozo.common.levelresult.LevelResultName;
+import org.dragberry.ozo.domain.IntegerLevelResult;
 import org.dragberry.ozo.domain.LevelId;
-import org.dragberry.ozo.domain.LevelResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,20 +13,20 @@ import org.springframework.stereotype.Service;
 public class LevelResultCacheServiceBean implements LevelResultCacheService {
 	
 	@Autowired
-	private Map<ResultKey, LevelResult<Integer>> cache;
+	private Map<ResultKey, IntegerLevelResult> cache;
 	
 	@Override
-	public LevelResult<Integer> getResultsForLevel(LevelResultName name, LevelId levelId) {
+	public IntegerLevelResult getResultsForLevel(LevelResultName name, LevelId levelId) {
 		return cache.get(new ResultKey(name, levelId));
 	}
 	
 	@Override
-	public void putResultsForLevel(LevelResultName name, LevelId levelId, LevelResult<Integer> levelResult) {
+	public void putResultsForLevel(LevelResultName name, LevelId levelId, IntegerLevelResult levelResult) {
 		cache.put(new ResultKey(name, levelId), levelResult);
 	}
 	
 	@Override
-	public LevelResult<Integer> computeIfAbsent(LevelResultName name, LevelId levelId, Function<? super ResultKey, ? extends LevelResult<Integer>> mappingFunction) {
+	public IntegerLevelResult computeIfAbsent(LevelResultName name, LevelId levelId, Function<? super ResultKey, ? extends IntegerLevelResult> mappingFunction) {
 		return cache.computeIfAbsent(new ResultKey(name, levelId), mappingFunction);
 	}
 	

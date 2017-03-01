@@ -1,14 +1,21 @@
 package org.dragberry.ozo.web.controllers;
 
+import java.time.LocalDateTime;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.dragberry.ozo.common.level.LevelConfig;
 import org.dragberry.ozo.common.level.Levels;
 import org.dragberry.ozo.common.levelresult.AllLevelResults;
+import org.dragberry.ozo.common.levelresult.LevelResultName;
 import org.dragberry.ozo.common.levelresult.LevelResults;
 import org.dragberry.ozo.common.levelresult.LevelSingleResult;
+import org.dragberry.ozo.common.levelresult.NewLevelResultResponse;
 import org.dragberry.ozo.common.levelresult.NewLevelResultsRequest;
+import org.dragberry.ozo.common.levelresult.NewLevelResultsResponse;
 import org.dragberry.ozo.dao.LevelResultDao;
+import org.dragberry.ozo.domain.IntegerLevelResult;
+import org.dragberry.ozo.domain.Level;
 import org.dragberry.ozo.domain.LevelId;
 import org.dragberry.ozo.domain.LevelResult;
 import org.dragberry.ozo.domain.User;
@@ -97,17 +104,67 @@ public class LevelResultController {
 	
 	@RequestMapping(value = "/level/result/new", method = RequestMethod.POST)
 	@ResponseBody
-	public NewLevelResultsRequest newResult(@RequestBody NewLevelResultsRequest request) {
+	public NewLevelResultsResponse newResult(@RequestBody NewLevelResultsRequest request) {
 		User user = userService.findUserById(request.getUserId());
+		Level level = levelService.getLevel(request.getLevelId());
 		
-		LevelConfig levelConfig = levelService.getLevelConfig(request.getLevelId());
+		NewLevelResultsResponse response = new NewLevelResultsResponse();
+		response.setLevelId(request.getLevelId());
+		response.setUserId(request.getUserId());
 		
-//		NewLevelResults newResult = new NewLevelResults();
-//		newResult.setLevelId("ozo.level.0");
-//		newResult.setUserId("id0");
-//		newResult.getFloatResults().put(LevelResultName.TIME, new NewLevelResult<>(13f));
-//		newResult.getIntegerResults().put(LevelResultName.STEPS, new NewLevelResult<>(14));
-		return request;
+		request.getResults().entrySet().forEach(entry -> {
+			LevelResultName resultName = entry.getKey();
+			Integer resultValueRequest = entry.getValue().getValue();
+			
+			IntegerLevelResult worldResult = levelResultCacheService.computeIfAbsent(
+					resultName, level.getEntityKey(), 
+					(resultKey) -> levelResultDao.getLevelResult(level.getEntityKey(), resultName));
+			if (worldResult == null) {
+				// No world record for the level
+				worldResult = new IntegerLevelResult();
+				worldResult.setDate(LocalDateTime.now());
+				worldResult.setUser(user);
+				worldResult.setLevel(level);
+				worldResult.setName(resultName);
+				worldResult.setResultValue(resultValueRequest);
+				worldResult = levelResultDao.create(worldResult);
+				levelResultCacheService.putResultsForLevel(resultName, level.getEntityKey(), worldResult);
+				response.getResults().put(resultName, new NewLevelResultResponse<>(resultValueRequest, true, true));
+			} else if (worldResult.getResultValue() > resultValueRequest) {
+				// World record is beaten
+				worldResult.setResultValue(resultValueRequest);
+				worldResult.setUser(user);
+				worldResult.setDate(LocalDateTime.now());
+				worldResult = levelResultDao.update(worldResult);
+				levelResultCacheService.putResultsForLevel(resultName, level.getEntityKey(), worldResult);
+				response.getResults().put(resultName, new NewLevelResultResponse<>(resultValueRequest, true, true));
+			} else {
+				IntegerLevelResult personalResult = levelResultDao.getLevelResultForUser(level.getEntityKey(), resultName, user.getUserId());
+				if (personalResult == null) {
+					// World record exists, personal is not exists
+					personalResult = new IntegerLevelResult();
+					personalResult.setDate(LocalDateTime.now());
+					personalResult.setUser(user);
+					personalResult.setLevel(level);
+					personalResult.setName(resultName);
+					personalResult.setResultValue(resultValueRequest);
+					personalResult = levelResultDao.create(personalResult);
+					response.getResults().put(resultName, new NewLevelResultResponse<>(resultValueRequest, false, true));
+				} else if (personalResult.getResultValue() > resultValueRequest) {
+					// World record exists, personal is beaten
+					personalResult.setResultValue(resultValueRequest);
+					personalResult.setUser(user);
+					personalResult.setDate(LocalDateTime.now());
+					personalResult = levelResultDao.update(personalResult);
+					response.getResults().put(resultName, new NewLevelResultResponse<>(resultValueRequest, false, true));
+				} else {
+					// World record exists, personal is not beaten
+					response.getResults().put(resultName, new NewLevelResultResponse<>(resultValueRequest, false, false));
+				}
+				
+			}
+		});
+		return response;
 	}
 	
 

@@ -2,50 +2,46 @@
 	"userName": "makseemka",
 	"levelResults": {
 		"ozo.level.0": {
-			"integerResults": {
-				"LOST_UNITS": {
-					"personal": 53,
-					"worlds": 53,
-					"owner": "makseemka"
+			"results": {
+				"TIME": {
+					"personal": 32500,
+					"worlds": 25770,
+					"owner": "test1"
 				},
 				"STEPS": {
 					"personal": 5,
 					"worlds": 3,
 					"owner": "test2"
-				}
-			},
-			"floatResults": {
-				"TIME": {
-					"personal": 32.5,
-					"worlds": 25.77,
-					"owner": "test1"
+				},
+				"LOST_UNITS": {
+					"personal": 53,
+					"worlds": 53,
+					"owner": "makseemka"
 				}
 			}
 		},
 		"ozo.level.2": {
-			"integerResults": {
-				"LOST_UNITS": {
-					"personal": 143,
-					"worlds": 12,
-					"owner": "test1"
+			"results": {
+				"TIME": {
+					"personal": 142300,
+					"worlds": 142300,
+					"owner": "makseemka"
 				},
 				"STEPS": {
 					"personal": 144,
 					"worlds": 132,
 					"owner": "test1"
-				}
-			},
-			"floatResults": {
-				"TIME": {
-					"personal": 142.3,
-					"worlds": 142.3,
-					"owner": "makseemka"
+				},
+				"LOST_UNITS": {
+					"personal": 143,
+					"worlds": 12,
+					"owner": "test1"
 				}
 			}
 		},
 		"ozo.level.3": {
-			"integerResults": {
-				"LOST_UNITS": {
+			"results": {
+				"TIME": {
 					"personal": null,
 					"worlds": null,
 					"owner": null
@@ -54,10 +50,8 @@
 					"personal": null,
 					"worlds": null,
 					"owner": null
-				}
-			},
-			"floatResults": {
-				"TIME": {
+				},
+				"LOST_UNITS": {
 					"personal": null,
 					"worlds": null,
 					"owner": null
