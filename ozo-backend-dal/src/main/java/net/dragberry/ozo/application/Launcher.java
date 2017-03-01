@@ -27,7 +27,7 @@ public class Launcher {
 
 			LevelDao levelDao = context.getBean(LevelDao.class);
 			
-			Level level = levelDao.findOne(new LevelId("ozo.level.0"));
+			Level level = levelDao.findOne(new LevelId("ozo.level.000.lvl"));
 			
 			LevelResultDao levelResultDao = context.getBean(LevelResultDao.class);
 			createStepsResult(user0, level, 5, levelResultDao);
@@ -45,7 +45,7 @@ public class Launcher {
 			createTimeResult(user2, level, 231f, levelResultDao);
 			createTimeResult(user3, level, 54.76f, levelResultDao);
 			
-			level = levelDao.findOne(new LevelId("ozo.level.1"));
+			level = levelDao.findOne(new LevelId("ozo.level.001.lvl"));
 			
 			createStepsResult(user0, level, 44, levelResultDao);
 			createStepsResult(user1, level, 32, levelResultDao);
@@ -63,7 +63,7 @@ public class Launcher {
 			createTimeResult(user3, level, 98.4f, levelResultDao);
 		
 
-			level = levelDao.findOne(new LevelId("ozo.level.2"));
+			level = levelDao.findOne(new LevelId("ozo.level.002.lvl"));
 			
 			createStepsResult(user0, level, 144, levelResultDao);
 			createStepsResult(user1, level, 132, levelResultDao);

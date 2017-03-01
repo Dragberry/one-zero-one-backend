@@ -2,8 +2,6 @@ package org.dragberry.ozo.web.controllers;
 
 import java.time.LocalDateTime;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.dragberry.ozo.common.level.LevelConfig;
 import org.dragberry.ozo.common.level.Levels;
 import org.dragberry.ozo.common.levelresult.AllLevelResults;
@@ -24,6 +22,7 @@ import org.dragberry.ozo.service.levels.LevelService;
 import org.dragberry.ozo.service.users.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,12 +43,9 @@ public class LevelResultController {
 	@Autowired
 	private LevelResultDao levelResultDao;
 	
-	@RequestMapping(value = "/level/result", method = RequestMethod.GET)
+	@RequestMapping(value = "/results/user/{userId}/level/{levelId:.+}", method = RequestMethod.GET)
 	@ResponseBody
-	public AllLevelResults getResultsForLevel(HttpServletRequest request) {
-		String userId = request.getParameter("userId");
-		String levelId = request.getParameter("levelId");
-		
+	public AllLevelResults getResultsForLevel(@PathVariable String userId, @PathVariable String levelId) {
 		User user = userService.findUserById(userId);
 		
 		AllLevelResults allLevelResults = new AllLevelResults();
@@ -63,11 +59,9 @@ public class LevelResultController {
 		return allLevelResults;
 	}
 	
-	@RequestMapping(value = "/level/result/all", method = RequestMethod.GET)
+	@RequestMapping(value = "/results/user/{userId}/levels", method = RequestMethod.GET)
 	@ResponseBody
-	public AllLevelResults getResultsForAllLevels(HttpServletRequest request) {
-		String userId = request.getParameter("userId");
-		
+	public AllLevelResults getResultsForAllLevels(@PathVariable String userId) {
 		User user = userService.findUserById(userId);
 		
 		AllLevelResults allLevelResults = new AllLevelResults();

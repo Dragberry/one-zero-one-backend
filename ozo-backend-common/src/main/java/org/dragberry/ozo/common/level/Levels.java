@@ -13,13 +13,13 @@ public class Levels {
 	
 	static {
 		Map<String, LevelConfig> map = new LinkedHashMap<>();
-		map.put("ozo.level.0", new LevelConfig("ozo.level.0", 
+		map.put("ozo.level.000.lvl", new LevelConfig("ozo.level.000.lvl", 
 				EnumSet.of(LevelResultName.TIME, LevelResultName.STEPS, LevelResultName.LOST_UNITS)));
-		map.put("ozo.level.1", new LevelConfig("ozo.level.1", 
+		map.put("ozo.level.001.lvl", new LevelConfig("ozo.level.001.lvl", 
 				EnumSet.of(LevelResultName.TIME, LevelResultName.STEPS, LevelResultName.LOST_UNITS)));
-		map.put("ozo.level.2", new LevelConfig("ozo.level.2", 
+		map.put("ozo.level.002.lvl", new LevelConfig("ozo.level.001.lvl", 
 				EnumSet.of(LevelResultName.TIME, LevelResultName.STEPS, LevelResultName.LOST_UNITS)));
-		map.put("ozo.level.3", new LevelConfig("ozo.level.3", 
+		map.put("ozo.level.003.lvl", new LevelConfig("ozo.level.003.lvl", 
 				EnumSet.of(LevelResultName.TIME, LevelResultName.STEPS, LevelResultName.LOST_UNITS)));
 		LIST = Collections.unmodifiableMap(map);
 	}
