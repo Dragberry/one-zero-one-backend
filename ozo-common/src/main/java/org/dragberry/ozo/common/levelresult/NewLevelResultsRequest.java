@@ -12,7 +12,7 @@ public class NewLevelResultsRequest implements Serializable {
 	
 	private String levelId;
 	
-	private Map<LevelResultName, NewLevelResultRequest<Integer>> results = new HashMap<>();
+	private Map<LevelResultName, NewLevelResultRequest<Integer>> results = new HashMap<LevelResultName, NewLevelResultRequest<Integer>>();
 
 	public String getUserId() {
 		return userId;

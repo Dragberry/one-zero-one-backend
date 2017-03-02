@@ -8,7 +8,7 @@ public class LevelResults implements Serializable {
 
 	private static final long serialVersionUID = -1830353672943199933L;
 
-	private Map<LevelResultName, LevelSingleResult<Integer>> results = new HashMap<>();
+	private Map<LevelResultName, LevelSingleResult<Integer>> results = new HashMap<LevelResultName, LevelSingleResult<Integer>>();
 
 	public Map<LevelResultName, LevelSingleResult<Integer>> getResults() {
 		return results;

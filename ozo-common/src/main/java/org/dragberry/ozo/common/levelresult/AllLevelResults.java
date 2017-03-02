@@ -10,7 +10,7 @@ public class AllLevelResults implements Serializable {
 	
 	private String userName;
 	
-	private Map<String, LevelResults> levelResults = new HashMap<>();
+	private Map<String, LevelResults> levelResults = new HashMap<String, LevelResults>();
 
 	public String getUserName() {
 		return userName;

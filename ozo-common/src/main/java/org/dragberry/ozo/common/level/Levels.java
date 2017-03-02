@@ -32,7 +32,7 @@ public class Levels {
 	public final static String L018_TSUNAMI				= "ozo.018.tsunami.lvl";
 	
 	static {
-		Map<String, LevelConfig> map = new LinkedHashMap<>();
+		Map<String, LevelConfig> map = new LinkedHashMap<String, LevelConfig>();
 		map.put(L001_LETS_START, new LevelConfig(L001_LETS_START, 
 				EnumSet.of(LevelResultName.TIME, LevelResultName.STEPS, LevelResultName.LOST_UNITS)));
 		map.put(L002_LITTLE_BIT_HARDER, new LevelConfig(L002_LITTLE_BIT_HARDER, 
