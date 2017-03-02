@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<artifactId>ozo-backend</artifactId>
+		<artifactId>ozo</artifactId>
 		<groupId>org.dragberry.ozo</groupId>
 		<version>1.0.0</version>
 	</parent>
