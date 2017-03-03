@@ -1,6 +1,7 @@
 package org.dragberry.ozo.common.levelresult;
 
 import java.io.Serializable;
+import java.text.MessageFormat;
 
 public class LevelSingleResult<T extends Serializable> implements Serializable {
 
@@ -19,6 +20,11 @@ public class LevelSingleResult<T extends Serializable> implements Serializable {
 	private T worlds;
 	
 	private String owner;
+	
+	@Override
+	public String toString() {
+		return MessageFormat.format("Result: [personal: {0}; world: {1}: owner: {2}]", personal, worlds, owner);
+	}
 
 	public T getPersonal() {
 		return personal;
