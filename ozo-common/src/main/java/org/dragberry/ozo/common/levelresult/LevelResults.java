@@ -17,5 +17,15 @@ public class LevelResults implements Serializable {
 	public void setResults(Map<LevelResultName, LevelSingleResult<Integer>> results) {
 		this.results = results;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("LevelResults:\n");
+		for (LevelSingleResult<Integer> result : results.values()) {
+			sb.append("\t").append(result).append("\n");
+		}
+		return sb.toString();
+	}
 
 }

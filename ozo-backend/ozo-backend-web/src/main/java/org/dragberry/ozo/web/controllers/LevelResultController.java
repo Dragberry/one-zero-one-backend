@@ -2,6 +2,8 @@ package org.dragberry.ozo.web.controllers;
 
 import java.time.LocalDateTime;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.dragberry.ozo.common.level.LevelConfig;
 import org.dragberry.ozo.common.level.Levels;
 import org.dragberry.ozo.common.levelresult.AllLevelResults;
@@ -30,6 +32,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class LevelResultController {
+	
+	private static final Logger LOG = LogManager.getLogger(LevelResultController.class);
 
 	@Autowired
 	private LevelResultCacheService levelResultCacheService;
@@ -99,6 +103,8 @@ public class LevelResultController {
 	@RequestMapping(value = "/level/result/new", method = RequestMethod.POST)
 	@ResponseBody
 	public NewLevelResultsResponse newResult(@RequestBody NewLevelResultsRequest request) {
+		LOG.info("New results request has came:\n" + request);
+		
 		User user = userService.findUserById(request.getUserId());
 		Level level = levelService.getLevel(request.getLevelId());
 		
@@ -114,7 +120,7 @@ public class LevelResultController {
 					resultName, level.getEntityKey(), 
 					(resultKey) -> levelResultDao.getLevelResult(level.getEntityKey(), resultName));
 			if (worldResult == null) {
-				// No world record for the level
+				LOG.info("No world " + resultName + " record for the level");
 				worldResult = new IntegerLevelResult();
 				worldResult.setDate(LocalDateTime.now());
 				worldResult.setUser(user);
@@ -125,7 +131,7 @@ public class LevelResultController {
 				levelResultCacheService.putResultsForLevel(resultName, level.getEntityKey(), worldResult);
 				response.getResults().put(resultName, new NewLevelResultResponse<>(resultValueRequest, true, true));
 			} else if (worldResult.getResultValue() > resultValueRequest) {
-				// World record is beaten
+				LOG.info("World " + resultName + " record is beaten");
 				worldResult.setResultValue(resultValueRequest);
 				worldResult.setUser(user);
 				worldResult.setDate(LocalDateTime.now());
@@ -135,7 +141,7 @@ public class LevelResultController {
 			} else {
 				IntegerLevelResult personalResult = levelResultDao.getLevelResultForUser(level.getEntityKey(), resultName, user.getUserId());
 				if (personalResult == null) {
-					// World record exists, personal is not exists
+					LOG.info("World " + resultName + " record exists, personal is not exists");
 					personalResult = new IntegerLevelResult();
 					personalResult.setDate(LocalDateTime.now());
 					personalResult.setUser(user);
@@ -145,14 +151,14 @@ public class LevelResultController {
 					personalResult = levelResultDao.create(personalResult);
 					response.getResults().put(resultName, new NewLevelResultResponse<>(resultValueRequest, false, true));
 				} else if (personalResult.getResultValue() > resultValueRequest) {
-					// World record exists, personal is beaten
+					LOG.info("World " + resultName + " record exists, personal is beaten");
 					personalResult.setResultValue(resultValueRequest);
 					personalResult.setUser(user);
 					personalResult.setDate(LocalDateTime.now());
 					personalResult = levelResultDao.update(personalResult);
 					response.getResults().put(resultName, new NewLevelResultResponse<>(resultValueRequest, false, true));
 				} else {
-					// World record exists, personal is not beaten
+					LOG.info("World " + resultName + " record exists, personal is not beaten");
 					response.getResults().put(resultName, new NewLevelResultResponse<>(resultValueRequest, false, false));
 				}
 				

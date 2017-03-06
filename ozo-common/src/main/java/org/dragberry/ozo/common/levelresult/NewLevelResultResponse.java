@@ -1,6 +1,7 @@
 package org.dragberry.ozo.common.levelresult;
 
 import java.io.Serializable;
+import java.text.MessageFormat;
 
 public class NewLevelResultResponse<V extends Serializable> implements Serializable {
 
@@ -16,10 +17,14 @@ public class NewLevelResultResponse<V extends Serializable> implements Serializa
 		this.value = value;
 		this.worlds = worlds;
 		this.personal = this.worlds ? true : personal;
-		
 	}
 	
 	public NewLevelResultResponse() {}
+
+	@Override
+	public String toString() {
+		return MessageFormat.format("ResultResponse: value=[{0}]; worlds=[{1}]; personal=[{2}]", value, worlds, personal);
+	}
 	
 	public V getValue() {
 		return value;

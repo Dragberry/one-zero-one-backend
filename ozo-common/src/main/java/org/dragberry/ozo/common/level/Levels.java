@@ -11,6 +11,7 @@ public class Levels {
 
 	public final static Map<String, LevelConfig> LIST;
 	
+	public final static String L000_TEST				= "ozo.000.test.lvl";
 	public final static String L001_LETS_START 			= "ozo.001.letsStart.lvl";
 	public final static String L002_LITTLE_BIT_HARDER 	= "ozo.002.littleBitHarder.lvl";
 	public final static String L003_NEED_MORE 			= "ozo.003.needMore.lvl";
@@ -33,6 +34,8 @@ public class Levels {
 	
 	static {
 		Map<String, LevelConfig> map = new LinkedHashMap<String, LevelConfig>();
+		map.put(L000_TEST, new LevelConfig(L000_TEST, 
+				EnumSet.of(LevelResultName.TIME, LevelResultName.STEPS, LevelResultName.LOST_UNITS)));
 		map.put(L001_LETS_START, new LevelConfig(L001_LETS_START, 
 				EnumSet.of(LevelResultName.TIME, LevelResultName.STEPS, LevelResultName.LOST_UNITS)));
 		map.put(L002_LITTLE_BIT_HARDER, new LevelConfig(L002_LITTLE_BIT_HARDER, 

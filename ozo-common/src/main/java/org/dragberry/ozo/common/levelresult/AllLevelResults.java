@@ -1,6 +1,7 @@
 package org.dragberry.ozo.common.levelresult;
 
 import java.io.Serializable;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +12,16 @@ public class AllLevelResults implements Serializable {
 	private String userName;
 	
 	private Map<String, LevelResults> levelResults = new HashMap<String, LevelResults>();
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(MessageFormat.format("AllLevelResults: userName=[{0}]", userName));
+		for (LevelResults results : levelResults.values()) {
+			sb.append(results).append("\n");
+		}
+		return sb.toString();
+	}
 
 	public String getUserName() {
 		return userName;

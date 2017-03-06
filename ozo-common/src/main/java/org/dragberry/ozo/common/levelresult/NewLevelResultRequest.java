@@ -1,6 +1,7 @@
 package org.dragberry.ozo.common.levelresult;
 
 import java.io.Serializable;
+import java.text.MessageFormat;
 
 public class NewLevelResultRequest<V extends Serializable> implements Serializable {
 
@@ -11,6 +12,11 @@ public class NewLevelResultRequest<V extends Serializable> implements Serializab
 	}
 	
 	public NewLevelResultRequest() {}
+	
+	@Override
+	public String toString() {
+		return MessageFormat.format("value={0}", value);
+	}
 	
 	private V value;
 

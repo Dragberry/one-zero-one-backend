@@ -1,6 +1,7 @@
 package org.dragberry.ozo.common.levelresult;
 
 import java.io.Serializable;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +14,16 @@ public class NewLevelResultsResponse implements Serializable {
 	private String levelId;
 	
 	private Map<LevelResultName, NewLevelResultResponse<Integer>> results = new HashMap<LevelResultName, NewLevelResultResponse<Integer>>();
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(MessageFormat.format("ResultsResponse: userId=[{0}]; leveId=[{1}]\n", userId, levelId));
+		for (NewLevelResultResponse<Integer> result : results.values()) {
+			sb.append("\t").append(result).append("\n");
+		}
+		return sb.toString();
+	}
 
 	public String getUserId() {
 		return userId;
