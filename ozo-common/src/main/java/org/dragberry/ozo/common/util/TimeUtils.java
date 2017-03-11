@@ -1,4 +1,4 @@
-package org.dragberry.ozo.common.level;
+package org.dragberry.ozo.common.util;
 
 public final class TimeUtils {
 	

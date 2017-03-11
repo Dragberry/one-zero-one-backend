@@ -1,15 +1,15 @@
 package org.dragberry.ozo.common.levelresult;
 
-import org.dragberry.ozo.common.level.TimeUtils;
+import org.dragberry.ozo.common.util.TimeUtils;
 
 public enum LevelResultName {
 	
-	TIME(new TimeBuilder()), STEPS(new StringBuilder()), LOST_UNITS(new StringBuilder());
+	TIME(new TimeStringifier()), STEPS(new IntegerStringifier()), LOST_UNITS(new IntegerStringifier());
 	
-	private StringBuilder stringBuilder;
+	private Stringifier<Integer> stringifier;
 	
-	private LevelResultName(StringBuilder builder) {
-		this.stringBuilder = builder;
+	private LevelResultName(Stringifier<Integer> stringifier) {
+		this.stringifier = stringifier;
 	}
 	
 	public String key() {
@@ -29,21 +29,49 @@ public enum LevelResultName {
 	}
 
 	public String toString(Integer value) {
-		return stringBuilder.build(value);
+		return stringifier.stringify(value);
 	}
 	
-	private static class StringBuilder {
+	private static abstract class Stringifier<T> {
 		
-		String build(Integer value) {
+		String stringify(T value) {
+			if (value == null) {
+				return stringifyNull();
+			}
+			return stringifyNotNull(value);
+		}
+		
+		abstract String stringifyNull();
+		
+		abstract String stringifyNotNull(T value);
+	}
+	
+	private static class IntegerStringifier extends Stringifier<Integer> {
+
+		@Override
+		String stringifyNull() {
+			return "-";
+		}
+
+		@Override
+		String stringifyNotNull(Integer value) {
 			return value.toString();
 		}
+		
+		
 	}
 	
-	private static class TimeBuilder extends StringBuilder {
+	private static class TimeStringifier extends Stringifier<Integer> {
 		
 		@Override
-		String build(Integer value) {
+		String stringifyNull() {
+			return "--:--";
+		}
+
+		@Override
+		String stringifyNotNull(Integer value) {
 			return TimeUtils.timeToString(value);
 		}
+		
 	}
 }
