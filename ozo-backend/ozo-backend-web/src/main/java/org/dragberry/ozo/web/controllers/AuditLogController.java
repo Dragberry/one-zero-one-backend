@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@RequestMapping(value = "/audit/events/new")
 public class AuditLogController {
 
 	private static final Logger LOG = LogManager.getLogger(AuditLogController.class);
@@ -37,13 +38,13 @@ public class AuditLogController {
 	@Autowired
 	private LevelService levelService;
 
-	@RequestMapping(value = "/audit/events/new/simple", method = RequestMethod.POST)
+	@RequestMapping(value = AuditEventRequest.URL_SIMPLE, method = RequestMethod.POST)
 	@ResponseBody
 	public void createAuditEvent(@RequestBody AuditEventRequest request) {
 		new AuditRequestProcessor<>().createEvent(request);
 	}
 	
-	@RequestMapping(value = "/audit/events/new/levelattempt", method = RequestMethod.POST)
+	@RequestMapping(value = LevelAttemptAuditEventRequest.URL_LEVEL_ATTEMPT, method = RequestMethod.POST)
 	@ResponseBody
 	public void createAuditEvent(@RequestBody LevelAttemptAuditEventRequest request) {
 		new AuditRequestProcessor<LevelAttemptAuditEventRequest>() {

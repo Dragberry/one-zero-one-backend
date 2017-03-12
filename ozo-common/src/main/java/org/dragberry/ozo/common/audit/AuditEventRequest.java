@@ -6,9 +6,15 @@ public class AuditEventRequest implements Serializable {
 
 	private static final long serialVersionUID = -8571910255196651479L;
 	
+	public static final String URL_SIMPLE = "simple";
+	
 	private String userId;
 	
 	private AuditEventType type;
+	
+	public String getUrl() {
+		return URL_SIMPLE;
+	}
 	
 	@Override
 	public String toString() {

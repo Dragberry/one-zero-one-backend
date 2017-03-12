@@ -3,6 +3,8 @@ package org.dragberry.ozo.common.audit;
 public class LevelAttemptAuditEventRequest extends AuditEventRequest {
 
 	private static final long serialVersionUID = 6427743907954522214L;
+	
+	public static final String URL_LEVEL_ATTEMPT = "levelattempt"; 
 
 	private String levelId;
 	
@@ -13,6 +15,11 @@ public class LevelAttemptAuditEventRequest extends AuditEventRequest {
 	private Integer steps;
 	
 	private Integer lostUnits;
+	
+	@Override
+	public String getUrl() {
+		return URL_LEVEL_ATTEMPT;
+	}
 
 	public String getLevelId() {
 		return levelId;
