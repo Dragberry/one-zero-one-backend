@@ -1,6 +1,8 @@
-package org.dragberry.ozo.domain;
+package org.dragberry.ozo.common.audit;
 
 import java.text.MessageFormat;
+
+import org.dragberry.ozo.common.DomainEnum;
 
 public enum LevelAttemptStatus implements DomainEnum<Character> {
 

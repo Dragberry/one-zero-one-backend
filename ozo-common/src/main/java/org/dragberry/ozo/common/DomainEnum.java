@@ -1,4 +1,4 @@
-package org.dragberry.ozo.domain;
+package org.dragberry.ozo.common;
 
 public interface DomainEnum<V> {
 

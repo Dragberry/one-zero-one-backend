@@ -13,6 +13,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import org.dragberry.ozo.common.audit.LevelAttemptStatus;
+
 @Entity
 @Table(name = "LEVEL_ATTEMPT")
 @TableGenerator(
@@ -37,15 +39,15 @@ public class LevelAttempt implements DomainEntity {
 	private Level level;
 	
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "AUDIT_LOG_KEY", referencedColumnName = "AUDIT_LOG_KEY")
-	private AuditLog auditLogRecord;
+	@JoinColumn(name = "AUDIT_EVENT_KEY", referencedColumnName = "AUDIT_EVENT_KEY")
+	private AuditEvent auditEvent;
 	
 	@Column(name = "STATUS")
 	@Convert(converter = LevelAttemptStatusConverter.class)
 	private LevelAttemptStatus status;
 	
 	@Column(name = "TIME")
-	private Double time;
+	private Integer time;
 
 	@Column(name = "STEPS")
 	private Integer steps;
@@ -66,12 +68,12 @@ public class LevelAttempt implements DomainEntity {
 		this.level = level;
 	}
 
-	public AuditLog getAuditLogRecord() {
-		return auditLogRecord;
+	public AuditEvent getAuditEvent() {
+		return auditEvent;
 	}
 
-	public void setAuditLogRecord(AuditLog auditLogRecord) {
-		this.auditLogRecord = auditLogRecord;
+	public void setAuditEvent(AuditEvent auditEvent) {
+		this.auditEvent = auditEvent;
 	}
 
 	public LevelAttemptStatus getStatus() {
@@ -82,11 +84,11 @@ public class LevelAttempt implements DomainEntity {
 		this.status = status;
 	}
 
-	public Double getTime() {
+	public Integer getTime() {
 		return time;
 	}
 
-	public void setTime(Double time) {
+	public void setTime(Integer time) {
 		this.time = time;
 	}
 

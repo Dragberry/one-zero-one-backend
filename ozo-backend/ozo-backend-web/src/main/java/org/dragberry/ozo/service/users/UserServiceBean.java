@@ -20,16 +20,12 @@ public class UserServiceBean implements UserService {
 	
 	@Override
 	public User findUserById(String userId) {
-		User user = null;
 		try {
-			user = userDao.findById(userId);
+			return userDao.findById(userId);
 		} catch (NoResultException nre) {
 			// TODO: Log
 		}
-		if (user == null) {
-			throw new UserNotFountException(MessageFormat.format(USER_404_MSG, userId));
-		}
-		return user;
+		throw new UserNotFountException(MessageFormat.format(USER_404_MSG, userId));
 	}
 	
 
