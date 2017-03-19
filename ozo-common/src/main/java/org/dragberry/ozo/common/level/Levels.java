@@ -32,6 +32,8 @@ public class Levels {
 	public final static String L017_STORM				= "ozo.017.storm.lvl";
 	public final static String L018_TSUNAMI				= "ozo.018.tsunami.lvl";
 	
+	public final static String L999_FREEPLAY			= "ozo.999.freeplay.lvl";
+	
 	static {
 		Map<String, LevelConfig> map = new LinkedHashMap<String, LevelConfig>();
 		map.put(L000_TEST, new LevelConfig(L000_TEST, 
@@ -74,6 +76,9 @@ public class Levels {
 		map.put(L018_TSUNAMI, new LevelConfig(L018_TSUNAMI, 
 				EnumSet.of(LevelResultName.TIME, LevelResultName.STEPS, LevelResultName.LOST_UNITS)));
 		
+		
+		map.put(L999_FREEPLAY, new LevelConfig(L999_FREEPLAY, 
+				EnumSet.of(LevelResultName.TIME, LevelResultName.STEPS, LevelResultName.LOST_UNITS)));
 		LIST = Collections.unmodifiableMap(map);
 	}
 }
