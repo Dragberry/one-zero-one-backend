@@ -35,4 +35,6 @@ INSERT INTO LEVEL (LEVEL_ID) VALUES ('ozo.014.regularity.lvl');
 INSERT INTO LEVEL (LEVEL_ID) VALUES ('ozo.015.unsafePlace.lvl');
 INSERT INTO LEVEL (LEVEL_ID) VALUES ('ozo.016.unsafeRegularity.lvl');
 INSERT INTO LEVEL (LEVEL_ID) VALUES ('ozo.017.storm.lvl');
-INSERT INTO LEVEL (LEVEL_ID) VALUES ('ozo.018.tsunami.lvl');
+INSERT INTO LEVEL (LEVEL_ID) VALUES ('ozo.018.repentance.lvl');
+INSERT INTO LEVEL (LEVEL_ID) VALUES ('ozo.019.highway.lvl');
+INSERT INTO LEVEL (LEVEL_ID) VALUES ('ozo.020.tsunami.lvl');
