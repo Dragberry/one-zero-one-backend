@@ -32,7 +32,9 @@ public class Levels {
 	public final static String L017_STORM				= "ozo.017.storm.lvl";
 	public final static String L018_REPENTANCE			= "ozo.018.repentance.lvl";
 	public final static String L019_HIGHWAY				= "ozo.019.highway.lvl";
-	public final static String L020_TSUNAMI				= "ozo.020.tsunami.lvl";
+	public final static String L020_FIBONACCI			= "ozo.020.fibonacci.lvl";
+	public final static String L021_TSUNAMI				= "ozo.021.tsunami.lvl";
+	
 	
 	public final static String L999_FREEPLAY			= "ozo.999.freeplay.lvl";
 	
@@ -79,7 +81,9 @@ public class Levels {
 				EnumSet.of(LevelResultName.TIME, LevelResultName.STEPS, LevelResultName.LOST_UNITS)));
 		map.put(L019_HIGHWAY, new LevelConfig(L019_HIGHWAY, 
 				EnumSet.of(LevelResultName.TIME, LevelResultName.STEPS, LevelResultName.LOST_UNITS)));
-		map.put(L020_TSUNAMI, new LevelConfig(L020_TSUNAMI, 
+		map.put(L020_FIBONACCI, new LevelConfig(L020_FIBONACCI, 
+				EnumSet.of(LevelResultName.TIME, LevelResultName.STEPS, LevelResultName.LOST_UNITS)));
+		map.put(L021_TSUNAMI, new LevelConfig(L021_TSUNAMI, 
 				EnumSet.of(LevelResultName.TIME, LevelResultName.STEPS, LevelResultName.LOST_UNITS)));
 		
 		
