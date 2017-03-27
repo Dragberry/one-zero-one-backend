@@ -1,11 +1,12 @@
 package org.dragberry.ozo.common.levelresult;
 
-import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NewLevelResultsResponse implements Serializable {
+import org.dragberry.ozo.common.AbstractResponse;
+
+public class NewLevelResultsResponse extends AbstractResponse {
 
 	private static final long serialVersionUID = 4846478180576077174L;
 	
