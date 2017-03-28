@@ -23,7 +23,7 @@ public class UserController {
 	@Autowired
 	private UserDao userDao;
 	
-	@RequestMapping(name = "/user/new", method = RequestMethod.POST)
+	@RequestMapping(name = "/app/{appVersion}/user/new", method = RequestMethod.POST)
 	@ResponseBody
 	public String createNewUser(@RequestBody String defultUserId) {
 		LOG.debug("New user request is recieved. Id=" + defultUserId);

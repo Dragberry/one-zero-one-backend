@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.dragberry.ozo.common.audit.AuditEventRequest;
+import org.dragberry.ozo.common.audit.AuditEventResponse;
 import org.dragberry.ozo.common.audit.LevelAttemptAuditEventRequest;
 import org.dragberry.ozo.dao.AuditEventDao;
 import org.dragberry.ozo.dao.LevelAttemptDao;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping(value = "/audit/events/new")
+@RequestMapping(value = "/app/{appVersion}/audit/events/new")
 public class AuditLogController {
 
 	private static final Logger LOG = LogManager.getLogger(AuditLogController.class);
@@ -40,13 +41,15 @@ public class AuditLogController {
 
 	@RequestMapping(value = AuditEventRequest.URL_SIMPLE, method = RequestMethod.POST)
 	@ResponseBody
-	public void createAuditEvent(@RequestBody AuditEventRequest request) {
+	public AuditEventResponse createAuditEvent(@RequestBody AuditEventRequest request) {
+		
 		new AuditRequestProcessor<>().createEvent(request);
+		return new AuditEventResponse();
 	}
 	
 	@RequestMapping(value = LevelAttemptAuditEventRequest.URL_LEVEL_ATTEMPT, method = RequestMethod.POST)
 	@ResponseBody
-	public void createAuditEvent(@RequestBody LevelAttemptAuditEventRequest request) {
+	public AuditEventResponse createAuditEvent(@RequestBody LevelAttemptAuditEventRequest request) {
 		new AuditRequestProcessor<LevelAttemptAuditEventRequest>() {
 			
 			@Override
@@ -61,6 +64,7 @@ public class AuditLogController {
 				levelAttemptDao.create(attempt);
 			}
 		}.createEvent(request);
+		return new AuditEventResponse();
 	}
 	
 	private class AuditRequestProcessor<T extends AuditEventRequest> {

@@ -47,7 +47,7 @@ public class LevelResultController {
 	@Autowired
 	private LevelResultDao levelResultDao;
 	
-	@RequestMapping(value = "/results/user/{userId}/level/{levelId:.+}", method = RequestMethod.GET)
+	@RequestMapping(value = "/app/{appVersion}/results/user/{userId}/level/{levelId:.+}", method = RequestMethod.GET)
 	@ResponseBody
 	public AllLevelResults getResultsForLevel(@PathVariable String userId, @PathVariable String levelId) {
 		User user = userService.findUserById(userId);
@@ -63,7 +63,7 @@ public class LevelResultController {
 		return allLevelResults;
 	}
 	
-	@RequestMapping(value = "/results/user/{userId}/levels", method = RequestMethod.GET)
+	@RequestMapping(value = "/app/{appVersion}/results/user/{userId}/levels", method = RequestMethod.GET)
 	@ResponseBody
 	public AllLevelResults getResultsForAllLevels(@PathVariable String userId) {
 		User user = userService.findUserById(userId);
@@ -100,7 +100,7 @@ public class LevelResultController {
 		return singleLevelResults;
 	}
 	
-	@RequestMapping(value = "/level/result/new", method = RequestMethod.POST)
+	@RequestMapping(value = "/app/{appVersion}/level/result/new", method = RequestMethod.POST)
 	@ResponseBody
 	public NewLevelResultsResponse newResult(@RequestBody NewLevelResultsRequest request) {
 		LOG.info("New results request has came:\n" + request);

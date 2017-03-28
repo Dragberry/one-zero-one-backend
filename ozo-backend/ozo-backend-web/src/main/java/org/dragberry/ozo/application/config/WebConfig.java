@@ -3,6 +3,7 @@ package org.dragberry.ozo.application.config;
 import java.util.List;
 
 import org.dragberry.ozo.web.controllers.Controllers;
+import org.dragberry.ozo.web.controllers.VersionCheckInterceptor;
 import org.dragberry.ozo.web.exceptions.Exceptions;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -48,6 +49,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new VersionCheckInterceptor());
 	}
 
 	@Bean
