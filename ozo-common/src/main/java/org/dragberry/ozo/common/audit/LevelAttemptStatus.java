@@ -9,7 +9,7 @@ public enum LevelAttemptStatus implements DomainEnum<Character> {
 	SUCCESS('S'), 
 	FAILED('F'), 
 	NEW('N'),
-	CONTINUED('I'),
+	CONTINUED('C'),
 	INTERRUPTED('I'),
 	PAUSED('P');
 	
