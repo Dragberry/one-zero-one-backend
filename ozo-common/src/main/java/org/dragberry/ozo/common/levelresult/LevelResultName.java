@@ -4,7 +4,10 @@ import org.dragberry.ozo.common.util.TimeUtils;
 
 public enum LevelResultName {
 	
-	TIME(new TimeStringifier()), STEPS(new IntegerStringifier()), LOST_UNITS(new IntegerStringifier());
+	TIME(new TimeStringifier()), 
+	STEPS(new IntegerStringifier()),
+	LOST_UNITS(new IntegerStringifier()),
+	MAX_VALUE(new IntegerStringifier());
 	
 	private Stringifier<Integer> stringifier;
 	

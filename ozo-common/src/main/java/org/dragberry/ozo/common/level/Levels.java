@@ -88,7 +88,7 @@ public class Levels {
 		
 		
 		map.put(L999_FREEPLAY, new LevelConfig(L999_FREEPLAY, 
-				EnumSet.of(LevelResultName.TIME, LevelResultName.STEPS, LevelResultName.LOST_UNITS)));
+				EnumSet.of(LevelResultName.MAX_VALUE)));
 		LIST = Collections.unmodifiableMap(map);
 	}
 }
