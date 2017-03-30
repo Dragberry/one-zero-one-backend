@@ -6,7 +6,12 @@ import org.dragberry.ozo.common.DomainEnum;
 
 public enum LevelAttemptStatus implements DomainEnum<Character> {
 
-	SUCCESS('S'), FAILED('F'), INTERRUPTED('I');
+	SUCCESS('S'), 
+	FAILED('F'), 
+	NEW('N'),
+	CONTINUED('I'),
+	INTERRUPTED('I'),
+	PAUSED('P');
 	
 	private char value;
 	

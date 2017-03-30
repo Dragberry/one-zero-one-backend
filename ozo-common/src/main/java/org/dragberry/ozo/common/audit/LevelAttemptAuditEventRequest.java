@@ -17,6 +17,23 @@ public class LevelAttemptAuditEventRequest extends AuditEventRequest {
 	private Integer lostUnits;
 	
 	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder(super.toString());
+		sb.append("[levelId=")
+			.append(levelId)
+			.append("][status=")
+			.append(status)
+			.append("][time=")
+			.append(time)
+			.append("][steps=")
+			.append(steps)
+			.append("][lostUnits=")
+			.append(lostUnits)
+			.append("]");
+		return sb.toString();
+	}
+	
+	@Override
 	public String getUrl() {
 		return URL_LEVEL_ATTEMPT;
 	}

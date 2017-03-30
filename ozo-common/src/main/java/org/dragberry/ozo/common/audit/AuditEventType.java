@@ -6,7 +6,9 @@ import org.dragberry.ozo.common.DomainEnum;
 
 public enum AuditEventType implements DomainEnum<Character> {
 	
-	LAUNCH_APPLICATION('L'), EXIT_APPLICATION('E'), START_LEVEL('S'), FINISH_LEVEL('F');
+	START_APPLICATION('S'), 
+	EXIT_APPLICATION('E'),
+	LEVEL_ATTEMPT('L');
 	
 	private char value;
 	
