@@ -30,7 +30,7 @@ INSERT INTO LEVEL (LEVEL_ID) VALUES ('ozo.018.repentance.lvl');
 INSERT INTO LEVEL (LEVEL_ID) VALUES ('ozo.019.highway.lvl');
 INSERT INTO LEVEL (LEVEL_ID) VALUES ('ozo.020.doubling.lvl');
 INSERT INTO LEVEL (LEVEL_ID) VALUES ('ozo.021.fibonacci.lvl');
-INSERT INTO LEVEL (LEVEL_ID) VALUES ('ozo.022.repentanceSeq.lvl');
+INSERT INTO LEVEL (LEVEL_ID) VALUES ('ozo.022.serialRepentance.lvl');
 INSERT INTO LEVEL (LEVEL_ID) VALUES ('ozo.023.tsunami.lvl');
 
 INSERT INTO LEVEL (LEVEL_ID) VALUES ('ozo.999.freeplay.lvl');
