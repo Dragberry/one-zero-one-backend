@@ -2,6 +2,8 @@ package org.dragberry.ozo.web.controllers;
 
 import java.util.UUID;
 
+import javax.persistence.PersistenceException;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.dragberry.ozo.common.user.NewUserRequest;
@@ -12,6 +14,7 @@ import org.dragberry.ozo.web.exceptions.UserAlreadyExistsError;
 import org.dragberry.ozo.web.exceptions.UserCreationError;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,12 +48,23 @@ public class UserController {
 				response.setUserId(user.getUserId());
 				response.setUserName(user.getUserName());
 				return response;
-			} catch (ConstraintViolationException exc) {
-				if (UNIQUE_ID_CONSTRAINT.equalsIgnoreCase(exc.getConstraintName())) {
-					LOG.warn("User with such id=" + user.getUserId() + " already exists", exc);
-				} else if (UNIQUE_NAME_CONSTRAINT.equalsIgnoreCase(exc.getConstraintName())) {
-					LOG.warn("User with such name=" + user.getUserName() + " already exists", exc);
-					throw new UserAlreadyExistsError();
+			} catch (JpaSystemException exc) {
+				if (exc.getCause() instanceof PersistenceException) {
+					PersistenceException pe = (PersistenceException) exc.getCause();
+					if (pe.getCause() instanceof ConstraintViolationException) {
+						if (UNIQUE_ID_CONSTRAINT.equalsIgnoreCase(((ConstraintViolationException) pe.getCause()).getConstraintName())) {
+							LOG.warn("User with such id=" + user.getUserId() + " already exists", exc);
+						} else if (UNIQUE_NAME_CONSTRAINT.equalsIgnoreCase(((ConstraintViolationException) pe.getCause()).getConstraintName())) {
+							LOG.warn("User with such name=" + user.getUserName() + " already exists", exc);
+							throw new UserAlreadyExistsError();
+						}
+					} else {
+						LOG.error("An error has occured during user creation!", exc);
+						throw new UserCreationError();
+					}
+				} else {
+					LOG.error("An error has occured during user creation!", exc);
+					throw new UserCreationError();
 				}
 			} catch (Exception exc) {
 				LOG.error("An error has occured during user creation!", exc);
