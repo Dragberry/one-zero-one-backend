@@ -12,6 +12,8 @@ public class NewLevelResultsResponse extends AbstractResponse {
 	
 	private String userId;
 	
+	private String userName;
+	
 	private String levelId;
 	
 	private Map<LevelResultName, NewLevelResultResponse<Integer>> results = new HashMap<LevelResultName, NewLevelResultResponse<Integer>>();
@@ -40,6 +42,14 @@ public class NewLevelResultsResponse extends AbstractResponse {
 
 	public void setLevelId(String levelId) {
 		this.levelId = levelId;
+	}
+	
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public Map<LevelResultName, NewLevelResultResponse<Integer>> getResults() {

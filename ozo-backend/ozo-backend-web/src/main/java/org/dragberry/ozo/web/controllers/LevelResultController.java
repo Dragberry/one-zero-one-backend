@@ -110,7 +110,8 @@ public class LevelResultController {
 		
 		NewLevelResultsResponse response = new NewLevelResultsResponse();
 		response.setLevelId(request.getLevelId());
-		response.setUserId(request.getUserId());
+		response.setUserId(user.getUserId());
+		response.setUserName(user.getUserName());
 		
 		request.getResults().entrySet().forEach(entry -> {
 			LevelResultName resultName = entry.getKey();
