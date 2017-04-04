@@ -4,7 +4,7 @@
 
 	<groupId>org.dragberry.ozo</groupId>
 	<artifactId>ozo</artifactId>
-	<version>1.0.0</version>
+	<version>2.0.0</version>
 	<name>One-Zero-One</name>
 	<description>Car Manager</description>
 	<packaging>pom</packaging>
