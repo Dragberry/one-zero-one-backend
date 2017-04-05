@@ -131,12 +131,34 @@ public class LevelResultController {
 				worldResult = levelResultDao.create(worldResult);
 				levelResultCacheService.putResultsForLevel(resultName, level.getEntityKey(), worldResult);
 				response.getResults().put(resultName, new NewLevelResultResponse<>(resultValueRequest, true, true));
-			} else if (worldResult.getResultValue() > resultValueRequest) {
+			} else if (worldResult.getName().isRecordBeaten(worldResult.getResultValue(), resultValueRequest)) {
 				LOG.info("World " + resultName + " record is beaten");
-				worldResult.setResultValue(resultValueRequest);
-				worldResult.setUser(user);
-				worldResult.setDate(LocalDateTime.now());
-				worldResult = levelResultDao.update(worldResult);
+				if (worldResult.getUser().equals(user)) {
+					LOG.info("Old record owner was the same user");
+					worldResult.setResultValue(resultValueRequest);
+					worldResult.setUser(user);
+					worldResult.setDate(LocalDateTime.now());
+					worldResult = levelResultDao.update(worldResult);
+				} else {
+					LOG.info("Old " + resultName + " record owner was the another user");
+					worldResult = levelResultDao.getLevelResultForUser(level.getEntityKey(), resultName, user.getUserId());
+					if (worldResult == null) {
+						LOG.info("Create a new world " + resultName + " record for new user");
+						worldResult = new IntegerLevelResult();
+						worldResult.setResultValue(resultValueRequest);
+						worldResult.setUser(user);
+						worldResult.setLevel(level);
+						worldResult.setName(resultName);
+						worldResult.setDate(LocalDateTime.now());
+						worldResult = levelResultDao.create(worldResult);
+					} else {
+						LOG.info("Update a personal " + resultName + " record for another user");
+						worldResult.setResultValue(resultValueRequest);
+						worldResult.setUser(user);
+						worldResult.setDate(LocalDateTime.now());
+						worldResult = levelResultDao.update(worldResult);
+					}
+				}
 				levelResultCacheService.putResultsForLevel(resultName, level.getEntityKey(), worldResult);
 				response.getResults().put(resultName, new NewLevelResultResponse<>(resultValueRequest, true, true));
 			} else {
@@ -151,7 +173,7 @@ public class LevelResultController {
 					personalResult.setResultValue(resultValueRequest);
 					personalResult = levelResultDao.create(personalResult);
 					response.getResults().put(resultName, new NewLevelResultResponse<>(resultValueRequest, false, true));
-				} else if (personalResult.getResultValue() > resultValueRequest) {
+				} else if (personalResult.getName().isRecordBeaten(personalResult.getResultValue(), resultValueRequest)) {
 					LOG.info("World " + resultName + " record exists, personal is beaten");
 					personalResult.setResultValue(resultValueRequest);
 					personalResult.setUser(user);
