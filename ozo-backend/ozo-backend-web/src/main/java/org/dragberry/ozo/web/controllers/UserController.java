@@ -6,6 +6,7 @@ import javax.persistence.PersistenceException;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.dragberry.ozo.common.CommonConstants;
 import org.dragberry.ozo.common.user.NewUserRequest;
 import org.dragberry.ozo.common.user.NewUserResponse;
 import org.dragberry.ozo.dao.UserDao;
@@ -36,6 +37,9 @@ public class UserController {
 	@ResponseBody
 	public NewUserResponse createNewUser(@RequestBody NewUserRequest userRequest) {
 		LOG.debug("New user request is recieved: " + userRequest);
+		if (CommonConstants.DEFAULT_USER_NAME.equalsIgnoreCase(userRequest.getUserName())) {
+			throw new UserAlreadyExistsError();
+		}
 		User user = new User();
 		for (int i = 0; i < 5; i++) {
 			user.setUserId(UUID.randomUUID().toString());
