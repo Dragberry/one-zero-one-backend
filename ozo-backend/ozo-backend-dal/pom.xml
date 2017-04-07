@@ -99,6 +99,8 @@
 										<delete file="${project.build.outputDirectory}/database.properties" />
 										<copy file="src/main/resources/database.test.properties"
 											tofile="${project.build.outputDirectory}/database.properties" />
+										<delete file="${project.build.outputDirectory}/database.test.properties" />
+										<delete file="${project.build.outputDirectory}/database.prod.properties" />
 									</tasks>
 								</configuration>
 							</execution>
@@ -136,7 +138,7 @@
 						<artifactId>maven-antrun-plugin</artifactId>
 						<executions>
 							<execution>
-								<phase>prod</phase>
+								<phase>test</phase>
 								<goals>
 									<goal>run</goal>
 								</goals>
@@ -145,6 +147,8 @@
 										<delete file="${project.build.outputDirectory}/database.properties" />
 										<copy file="src/main/resources/database.prod.properties"
 											tofile="${project.build.outputDirectory}/database.properties" />
+										<delete file="${project.build.outputDirectory}/database.test.properties" />
+										<delete file="${project.build.outputDirectory}/database.prod.properties" />
 									</tasks>
 								</configuration>
 							</execution>
@@ -165,7 +169,7 @@
 									<goal>jar</goal>
 								</goals>
 								<configuration>
-									<classifier>prod</classifier>
+									<classifier>test</classifier>
 								</configuration>
 							</execution>
 						</executions>

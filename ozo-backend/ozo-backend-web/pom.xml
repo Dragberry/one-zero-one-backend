@@ -123,6 +123,8 @@
 										<delete file="${project.build.outputDirectory}/log4j.properties" />
 										<copy file="src/main/resources/log4j.test.properties"
 											tofile="${project.build.outputDirectory}/log4j.properties" />
+										<delete file="${project.build.outputDirectory}/log4j.test.properties" />
+										<delete file="${project.build.outputDirectory}/log4j.prod.properties" />
 									</tasks>
 								</configuration>
 							</execution>
@@ -160,7 +162,7 @@
 						<artifactId>maven-antrun-plugin</artifactId>
 						<executions>
 							<execution>
-								<phase>prod</phase>
+								<phase>test</phase>
 								<goals>
 									<goal>run</goal>
 								</goals>
@@ -169,6 +171,8 @@
 										<delete file="${project.build.outputDirectory}/log4j.properties" />
 										<copy file="src/main/resources/log4j.prod.properties"
 											tofile="${project.build.outputDirectory}/log4j.properties" />
+										<delete file="${project.build.outputDirectory}/log4j.test.properties" />
+										<delete file="${project.build.outputDirectory}/log4j.prod.properties" />
 									</tasks>
 								</configuration>
 							</execution>
@@ -189,7 +193,7 @@
 									<goal>jar</goal>
 								</goals>
 								<configuration>
-									<classifier>prod</classifier>
+									<classifier>test</classifier>
 								</configuration>
 							</execution>
 						</executions>
