@@ -93,7 +93,7 @@ public class Levels {
 		
 		
 		map.put(L999_FREEPLAY, new LevelConfig(L999_FREEPLAY, 
-				EnumSet.of(LevelResultName.MAX_VALUE)));
+				EnumSet.of(LevelResultName.MAX_VALUE, LevelResultName.MAX_AND_LOST)));
 		LIST = Collections.unmodifiableMap(map);
 	}
 }

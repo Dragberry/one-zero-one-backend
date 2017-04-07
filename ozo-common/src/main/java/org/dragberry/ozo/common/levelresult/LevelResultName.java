@@ -7,7 +7,8 @@ public enum LevelResultName {
 	TIME(new TimeStringifier(), new LessResultComparator()), 
 	STEPS(new IntegerStringifier(), new LessResultComparator()),
 	LOST_UNITS(new IntegerStringifier(), new LessResultComparator()),
-	MAX_VALUE(new IntegerStringifier(), new GreaterResultComparator());
+	MAX_VALUE(new IntegerStringifier(), new GreaterResultComparator()),
+	MAX_AND_LOST(new IntegerStringifier(), new GreaterResultComparator());
 	
 	private Stringifier<Integer> stringifier;
 	private ResultComparator<Integer> comparator;
